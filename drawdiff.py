@@ -104,7 +104,7 @@ def get_mime(file) -> str:
 
 def run_compare(f1, f2) -> dict:
 
-    client = anthropic.Anthropic()
+    client = anthropic.Anthropic(api_key=st.secrets["ANTHROPIC_API_KEY"])
     b1, b2 = f1.read(), f2.read()
 
     resp = client.messages.create(
