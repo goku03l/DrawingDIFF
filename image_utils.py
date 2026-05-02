@@ -4,6 +4,10 @@ PIL-based image utilities: coordinate conversion, annotation drawing,
 region cropping, and serialisation helpers.
 """
 
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+
 import io
 
 from PIL import Image, ImageDraw, ImageFont
