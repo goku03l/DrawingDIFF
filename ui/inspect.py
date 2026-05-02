@@ -4,6 +4,10 @@ Renders the right-hand inspect panel for a selected difference.
 Shows: title card, confidence bar, description cards, cropped images.
 """
 
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+
 import streamlit as st
 from PIL import Image
 

@@ -4,6 +4,10 @@ Renders the interactive difference table.
 Each row has a 🔍 / ✕ button that sets st.session_state.sel_id.
 """
 
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+
 import streamlit as st
 
 from constants import SEV_COLORS, conf_color

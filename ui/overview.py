@@ -4,6 +4,10 @@ Renders the summary metrics row, annotated drawing overview,
 and the "identical aspects" pill strip.
 """
 
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+
 import streamlit as st
 from PIL import Image
 
