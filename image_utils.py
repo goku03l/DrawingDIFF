@@ -4,10 +4,6 @@ PIL-based image utilities: coordinate conversion, annotation drawing,
 region cropping, and serialisation helpers.
 """
 
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-
 import io
 
 from PIL import Image, ImageDraw, ImageFont
@@ -28,7 +24,7 @@ def _load_font(size: int = _BADGE_FONT_SIZE) -> ImageFont.FreeTypeFont:
 
 # ── Coordinate helpers ────────────────────────────────────────────────────────
 
-def pct_to_px(bbox: dict, W: int, H: int) -> tuple[int, int, int, int]:
+def pct_to_px(bbox: dict, W: int, H: int, padding: int = 6) -> tuple[int, int, int, int]:
     """
     Convert a percentage-based bounding box to pixel coordinates.
 
@@ -40,8 +36,10 @@ def pct_to_px(bbox: dict, W: int, H: int) -> tuple[int, int, int, int]:
 
     Parameters
     ----------
-    bbox : dict  with keys x, y, w, h  (all as % of image dimension)
-    W, H : int   image width and height in pixels
+    bbox    : dict  with keys x, y, w, h  (all as % of image dimension)
+    W, H    : int   image width and height in pixels
+    padding : int   extra pixels added on each side to make the box slightly
+                    larger (default 6; pass 0 to disable)
 
     Returns
     -------
@@ -52,10 +50,22 @@ def pct_to_px(bbox: dict, W: int, H: int) -> tuple[int, int, int, int]:
     aw = max(0.0, float(bbox.get("w", 0)))
     ah = max(0.0, float(bbox.get("h", 0)))
 
-    x1 = int(ax        / 100 * W)
-    y1 = int(ay        / 100 * H)
-    x2 = int((ax + aw) / 100 * W)
-    y2 = int((ay + ah) / 100 * H)
+    # Calculate centers in pixels
+    center_x = (ax / 100) * W
+    center_y = (ay / 100) * H
+    half_w = (aw / 100 * W) / 2
+    half_h = (ah / 100 * H) / 2
+
+    x1 = int(center_x - half_w)
+    y1 = int(center_y - half_h)
+    x2 = int(center_x + half_w)
+    y2 = int(center_y + half_h)
+
+    # Expand by padding
+    x1 -= padding
+    y1 -= padding
+    x2 += padding
+    y2 += padding
 
     # Clamp to image bounds
     x1, x2 = max(0, min(x1, W - 1)), max(0, min(x2, W - 1))
