@@ -71,18 +71,6 @@ def pct_to_px(bbox: dict, W: int, H: int, padding: int = 6) -> tuple[int, int, i
     x1, x2 = max(0, min(x1, W - 1)), max(0, min(x2, W - 1))
     y1, y2 = max(0, min(y1, H - 1)), max(0, min(y2, H - 1))
 
-    # Normalise direction
-    if x1 > x2:
-        x1, x2 = x2, x1
-    if y1 > y2:
-        y1, y2 = y2, y1
-
-    # Enforce minimum size
-    if x2 - x1 < 4:
-        x2 = min(W - 1, x1 + 4)
-    if y2 - y1 < 4:
-        y2 = min(H - 1, y1 + 4)
-
     return x1, y1, x2, y2
 
 
