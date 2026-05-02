@@ -52,7 +52,7 @@ from ui.inspect import render_inspect_panel
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="DrawingDiff — Engineering Comparator",
-    page_icon="⬡",
+    page_icon="ui/icon.png",
     layout="wide",
 )
 st.markdown(get_css(), unsafe_allow_html=True)
