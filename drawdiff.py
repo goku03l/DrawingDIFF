@@ -79,7 +79,7 @@ with bcol:
 
 # ── Run comparison ────────────────────────────────────────────────────────────
 if clicked and f1 and f2:
-    with st.spinner("Analyzing with Claude Vision…"):
+    with st.spinner("Analyzing…"):
         try:
             st.session_state.result = run_compare(f1, f2)
             f1.seek(0)
